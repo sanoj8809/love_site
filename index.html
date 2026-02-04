@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>From My Heart - Rocky</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #ffd1dc, #ffe6f0);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h1 {
+      color: #e6005c;
+      margin-bottom: 5px;
+    }
+
+    .from {
+      margin-bottom: 20px;
+      color: #444;
+      font-size: 18px;
+    }
+
+    /* Music Button */
+    #musicBtn {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 20px;
+      background: #ff4f7b;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 140px);
+      grid-gap: 25px;
+    }
+
+    /* Envelope Box */
+    .card {
+      width: 140px;
+      height: 100px;
+      background: linear-gradient(to bottom, #ff6f91, #ff4f7b);
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+      transition: 0.3s;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+      padding-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .card:hover {
+      transform: scale(1.08);
+    }
+
+    /* Envelope flap */
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: #ff85a2;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+    }
+
+    /* Message Box */
+    .message {
+      background: white;
+      width: 320px;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.25);
+      text-align: center;
+      display: none;
+      animation: fade 0.4s ease;
+    }
+
+    @keyframes fade {
+      from {opacity:0; transform: scale(0.9);} 
+      to {opacity:1; transform: scale(1);} 
+    }
+
+    .message p {
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .back {
+      margin-top: 20px;
+      color: blue;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Photo */
+    .photo img {
+      width: 200px;
+      border-radius: 15px;
+      margin-top: 15px;
+      box-shadow: 0 0 10px gray;
+    }
+
+    .love {
+      color: red;
+      font-size: 28px;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Music Button -->
+  <button id="musicBtn" onclick="playMusic()">🔊 Music ON</button>
+
+
+  <h1>Something From My Heart 💖</h1>
+  <div class="from">From Rocky ❤️</div>
+
+
+  <!-- Cards -->
+  <div id="main" class="grid">
+
+    <div class="card" onclick="openMsg(1)">You Matter ✨</div>
+    <div class="card" onclick="openMsg(2)">A Memory 💫</div>
+    <div class="card" onclick="openMsg(3)">Still You 💗</div>
+    <div class="card" onclick="openMsg(4)">My Heart 💌</div>
+
+  </div>
+
+
+  <!-- Message Area -->
+  <div id="msg" class="message">
+
+    <div id="text"></div>
+
+    <div class="back" onclick="goBack()">⬅ Back</div>
+
+  </div>
+
+
+<script>
+
+// Open Messages
+function openMsg(num){
+
+  document.getElementById("main").style.display = "none";
+  document.getElementById("msg").style.display = "block";
+
+  let text = "";
+
+  if(num === 1){
+    text = `
+      <p>💖 You really matter to me.</p>
+      <p>My life feels empty without you.</p>
+      <p>You are my biggest blessing.</p>
+    `;
+  }
+
+  if(num === 2){
+    text = `
+      <p>🌸 Every memory with you is special.</p>
+      <p>I keep them safe in my heart.</p>
+      <p>They make me smile every day.</p>
+    `;
+  }
+
+  if(num === 3){
+    text = `
+      <p>💗 No matter what happens,</p>
+      <p>It will always be you.</p>
+      <p>Only you. Forever.</p>
+    `;
+  }
+
+  if(num === 4){
+    text = `
+      <p>😔 I know you are hurt.</p>
+      <p>💔 I am really sorry.</p>
+      <p>🙏 I promise I won’t repeat it.</p>
+      <p>❤️ Please forgive me.</p>
+
+      <div class="photo">
+        <img src="photo.jpg" alt="Our Photo">
+      </div>
+
+      <div class="love">I LOVE YOU 💞</div>
+      <p>— Yours, Rocky ❤️</p>
+    `;
+  }
+
+  document.getElementById("text").innerHTML = text;
+}
+
+
+// Back Button
+function goBack(){
+  document.getElementById("msg").style.display = "none";
+  document.getElementById("main").style.display = "grid";
+}
+
+
+// Play Music
+function playMusic(){
+  let music = document.getElementById("bgMusic");
+  music.play();
+
+  document.getElementById("musicBtn").innerText = "🎵 Playing";
+}
+
+</script>
+
+</body>
+</html>
